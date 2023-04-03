@@ -10,6 +10,11 @@ function html_log_error(message) {
 }
 self.html_log_error = html_log_error
 
+function alert(message) {
+    postMessage({message_type: "ALERT", message: message})
+}
+self.alert = alert;
+
 
 onmessage = async (e) => {
     if (e.data.message_type === "START") {
