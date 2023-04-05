@@ -1,4 +1,4 @@
-import {convert_map, default as init} from './rbxlx2vmf_web.js';
+importScripts('./rbxlx2vmf_web.js');
 
 function html_log(message) {
     postMessage({message_type: "LOG", message: message});

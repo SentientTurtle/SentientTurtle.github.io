@@ -219,7 +219,7 @@ function __wbg_adapter_24(arg0, arg1, arg2) {
 * @param {string} web_origin
 * @returns {Promise<Uint8Array>}
 */
-export function convert_map(input_name, input_data, is_texture_output_enabled, use_developer_textures, map_scale, auto_skybox_enabled, skybox_clearance, optimization_enabled, skyname, web_origin) {
+function convert_map(input_name, input_data, is_texture_output_enabled, use_developer_textures, map_scale, auto_skybox_enabled, skybox_clearance, optimization_enabled, skyname, web_origin) {
     const ptr0 = passStringToWasm0(input_name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
     const ptr1 = passStringToWasm0(input_data, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
@@ -275,9 +275,6 @@ async function load(module, imports) {
 }
 
 async function init(input) {
-    if (typeof input === 'undefined') {
-        input = new URL('rbxlx2vmf_web_bg.wasm', import.meta.url);
-    }
     const imports = {};
     imports.wbg = {};
     imports.wbg.__wbg_log_1924d59c217a2a98 = function(arg0, arg1) {
@@ -524,6 +521,4 @@ async function init(input) {
 
     return wasm;
 }
-
-export default init;
 
