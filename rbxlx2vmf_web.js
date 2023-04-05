@@ -1,9 +1,11 @@
+let wasm_bindgen;
+(function() {
+    const __exports = {};
+    let wasm;
 
-let wasm;
+    const heap = new Array(32).fill(undefined);
 
-const heap = new Array(32).fill(undefined);
-
-heap.push(undefined, null, true, false);
+    heap.push(undefined, null, true, false);
 
 function getObject(idx) { return heap[idx]; }
 
@@ -219,7 +221,7 @@ function __wbg_adapter_24(arg0, arg1, arg2) {
 * @param {string} web_origin
 * @returns {Promise<Uint8Array>}
 */
-function convert_map(input_name, input_data, is_texture_output_enabled, use_developer_textures, map_scale, auto_skybox_enabled, skybox_clearance, optimization_enabled, skyname, web_origin) {
+__exports.convert_map = function(input_name, input_data, is_texture_output_enabled, use_developer_textures, map_scale, auto_skybox_enabled, skybox_clearance, optimization_enabled, skyname, web_origin) {
     const ptr0 = passStringToWasm0(input_name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
     const ptr1 = passStringToWasm0(input_data, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
@@ -230,7 +232,7 @@ function convert_map(input_name, input_data, is_texture_output_enabled, use_deve
     const len3 = WASM_VECTOR_LEN;
     const ret = wasm.convert_map(ptr0, len0, ptr1, len1, is_texture_output_enabled, use_developer_textures, map_scale, auto_skybox_enabled, skybox_clearance, optimization_enabled, ptr2, len2, ptr3, len3);
     return takeObject(ret);
-}
+};
 
 function handleError(f, args) {
     try {
@@ -275,6 +277,15 @@ async function load(module, imports) {
 }
 
 async function init(input) {
+    if (typeof input === 'undefined') {
+        let src;
+        if (typeof document === 'undefined') {
+            src = location.href;
+        } else {
+            src = document.currentScript.src;
+        }
+        input = src.replace(/\.js$/, '_bg.wasm');
+    }
     const imports = {};
     imports.wbg = {};
     imports.wbg.__wbg_log_1924d59c217a2a98 = function(arg0, arg1) {
@@ -522,3 +533,6 @@ async function init(input) {
     return wasm;
 }
 
+wasm_bindgen = Object.assign(init, __exports);
+
+})();
